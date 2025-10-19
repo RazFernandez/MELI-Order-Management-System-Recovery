@@ -1,5 +1,8 @@
 package com.meli.meli_app.model;
 
+// 1. Add this import
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
@@ -15,6 +18,8 @@ public class Product {
     private String name;
     private String description;
 
+    // 2. Add this annotation right above the field
+    @JsonProperty("unit_price")
     @Column(name = "unit_price")
     private BigDecimal unitPrice;
 
@@ -33,7 +38,7 @@ public class Product {
         this.stock = stock;
     }
 
-    // --- Getters and Setters ---
+    // --- Getters and Setters (No changes needed here) ---
 
     public Integer getProductId() {
         return productId;
