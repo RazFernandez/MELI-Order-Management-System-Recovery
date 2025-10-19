@@ -1,29 +1,52 @@
 package com.meli.meli_app.controller;
 
 import com.meli.meli_app.model.Customer;
-import com.meli.meli_app.repository.CustomerRepository;
+import com.meli.meli_app.service.CustomerService; // Import service
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/customers") // Base URL for all customer-related endpoints
+@RequestMapping("/api/customers")
 public class CustomerController {
 
-    @Autowired // Spring injects the repository bean for us
-    private CustomerRepository customerRepository;
+    @Autowired
+    private CustomerService customerService; // Inject Service, not Repository
 
-    /**
-     * Creates a new customer.
-     * Endpoint: POST /api/customers
-     */
+    // CREATE (This one already existed)
     @PostMapping
     public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-        // The .save() method performs the INSERT SQL statement
-        Customer savedCustomer = customerRepository.save(customer);
-
-        // Return the saved object and a 201 Created status
+        Customer savedCustomer = customerService.createCustomer(customer);
         return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
+    }
+
+    // READ (Get All)
+    @GetMapping
+    public List<Customer> getAllCustomers() {
+        return customerService.getAllCustomers();
+    }
+
+    // READ (Get One by ID)
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable Integer id) {
+        Customer customer = customerService.getCustomerById(id);
+        return ResponseEntity.ok(customer);
+    }
+
+    // UPDATE
+    @PutMapping("/{id}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable Integer id, @RequestBody Customer customerDetails) {
+        Customer updatedCustomer = customerService.updateCustomer(id, customerDetails);
+        return ResponseEntity.ok(updatedCustomer);
+    }
+
+    // DELETE
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCustomer(@PathVariable Integer id) {
+        customerService.deleteCustomer(id);
+        return ResponseEntity.noContent().build(); // Returns a 204 No Content status
     }
 }

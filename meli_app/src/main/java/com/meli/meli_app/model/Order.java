@@ -1,5 +1,9 @@
 package com.meli.meli_app.model;
 
+// 1. Add these imports
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,7 +18,9 @@ public class Order {
     @Column(name = "order_id")
     private Integer orderId;
 
-    @Column(name = "date", insertable = false, updatable = false)
+    // 2. Replace the old @Column annotation with this
+    @CreationTimestamp
+    @Column(name = "date", updatable = false)
     private LocalDateTime date;
 
     private String status;
@@ -22,6 +28,8 @@ public class Order {
     @Column(name = "total_amount")
     private BigDecimal totalAmount;
 
+    // 3. Add this annotation to manage the relationship
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
@@ -30,7 +38,6 @@ public class Order {
     private List<OrderItem> orderItems;
 
     // --- Constructors ---
-
     public Order() {
     }
 
@@ -44,7 +51,8 @@ public class Order {
         this.orderItems = orderItems;
     }
 
-    // --- Getters and Setters ---
+    // --- Getters and Setters (No changes) ---
+    // ... (all your getters and setters remain the same) ...
 
     public Integer getOrderId() {
         return orderId;

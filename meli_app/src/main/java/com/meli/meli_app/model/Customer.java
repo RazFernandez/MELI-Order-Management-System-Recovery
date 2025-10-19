@@ -1,5 +1,7 @@
 package com.meli.meli_app.model;
 
+// 1. Add this import
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -16,16 +18,15 @@ public class Customer {
     private String email;
     private String password;
 
+    // 2. Add this annotation to break the loop
+    @JsonBackReference
     @OneToMany(mappedBy = "customer")
     private List<Order> orders;
 
     // --- Constructors ---
-
-    // No-argument constructor (required by JPA)
     public Customer() {
     }
 
-    // All-argument constructor (replaces @AllArgsConstructor)
     public Customer(Integer customerId, String name, String email, String password, List<Order> orders) {
         this.customerId = customerId;
         this.name = name;
@@ -34,7 +35,8 @@ public class Customer {
         this.orders = orders;
     }
 
-    // --- Getters and Setters (replaces @Data) ---
+    // --- Getters and Setters (No changes) ---
+    // ... (all your getters and setters remain the same) ...
 
     public Integer getCustomerId() {
         return customerId;
