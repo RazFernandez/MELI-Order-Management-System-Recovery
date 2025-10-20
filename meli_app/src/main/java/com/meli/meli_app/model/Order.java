@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -15,7 +17,7 @@ public class Order {
     private Integer orderId;
 
     @Column(name = "date", insertable = false, updatable = false)
-    private LocalDateTime date;
+    private LocalDateTime date = LocalDateTime.now();
 
     private String status;
 
@@ -24,6 +26,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonBackReference
     private Customer customer;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)

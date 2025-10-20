@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Data // Lombok: Creates getters, setters, toString(), etc.
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,5 +27,6 @@ public class Customer {
 
     // A customer can have many orders
     @OneToMany(mappedBy = "customer")
+    @JsonManagedReference
     private List<Order> orders;
 }
