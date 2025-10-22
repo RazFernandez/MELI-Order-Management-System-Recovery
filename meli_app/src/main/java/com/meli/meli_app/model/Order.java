@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+// import org.hibernate.annotations.CreationTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -16,7 +18,7 @@ public class Order {
     @Column(name = "order_id")
     private Integer orderId;
 
-    @Column(name = "date", insertable = false, updatable = false)
+    @Column(name = "date")
     private LocalDateTime date = LocalDateTime.now();
 
     private String status;
