@@ -10,6 +10,11 @@
 
 ---
 
+## Swagger evidence
+https://github.com/user-attachments/assets/7689be0e-668d-4404-9a81-6316a6b7b365
+
+
+
 ## 🧩 Team Structure and Responsibilities  
 
 | Team | Role | Responsibilities | Assigned User Stories / Tasks |
